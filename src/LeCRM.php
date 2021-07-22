@@ -15,8 +15,8 @@ class LeCRM
     {
         $url = 'https://lecrm.ru/api/crm/lead';
 
-        $opts = array('http' =>
-            array(
+        $opts = [
+            'http' => [
                 'method'  => 'POST',
                 'header'  => 'Content-Type: application/json',
                 'content' => http_build_query([
@@ -26,8 +26,12 @@ class LeCRM
                         'info'      => $info,
                     ]
                 )
-            )
-        );
+            ],
+            'ssl' => [
+                'verify_peer'       => false,
+                'verify_peer_name'  => false,
+            ],
+        ];
 
         $result = file_get_contents($url, false, stream_context_create($opts));
     }
