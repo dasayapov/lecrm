@@ -15,24 +15,24 @@ class LeCRM
     {
         $url = 'https://lecrm.ru/api/crm/lead';
 
-        $opts = [
-            'http' => [
-                'method'  => 'POST',
-                'header'  => 'Content-Type: application/json',
-                'content' => http_build_query([
-                        'token'     => self::$token,
-                        'formId'    => $formId,
-                        'fields'    => $fields,
-                        'info'      => $info,
-                    ]
-                )
-            ],
-            'ssl' => [
-                'verify_peer'       => false,
-                'verify_peer_name'  => false,
-            ],
-        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'token'     => self::$token,
+            'formId'    => $formId,
+            'fields'    => $fields,
+            'info'      => $info,
+        ]));
 
-        $result = file_get_contents($url, false, stream_context_create($opts));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($result, true);
     }
 }
