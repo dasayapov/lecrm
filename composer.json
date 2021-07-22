@@ -1,0 +1,18 @@
+{
+    "name": "dasayapov/lecrm",
+    "type": "package",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Damir Sayapov",
+            "email": "hello@lecrm.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DaSayapov\\LeCRM\\": "src"
+        }
+    }
+}
