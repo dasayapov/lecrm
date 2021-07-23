@@ -11,7 +11,7 @@ class LeCRM
         self::$token = $token;
     }
 
-    static function lead($formId, $fields = [], $info = [])
+    static function lead($form, $fields = [], $info = [])
     {
         $url = 'https://lecrm.ru/api/crm/lead';
 
@@ -19,7 +19,7 @@ class LeCRM
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
             'token'     => self::$token,
-            'formId'    => $formId,
+            'form'    => $form,
             'fields'    => $fields,
             'info'      => $info,
         ]));
